@@ -1,0 +1,409 @@
+import java.util.*;
+import java.io.*;
+
+class Node
+{
+	public int rno;
+	public String name;
+	public int age;
+	public int marks;
+	public Node next;
+	
+	{
+		this.next=null;
+	}
+	
+	public Node(int i,String str,int a,int m)
+	{
+		this.rno=i;
+		this.name=str;
+		this.age=a;
+		this.marks=m;
+	}
+}	
+	interface LinkedLL
+	{
+		public void InsertFirst(int i,String s,int j,int m);
+		public void InsertLast(int i,String s,int j,int m);
+		public void Display();
+		public void Delete(int a);
+		public void Delete(String a);
+		
+		
+	}
+	
+	class Student implements LinkedLL
+	{
+		public Node head;
+		public int size;
+		public Student()
+		{
+			head=null;
+				//System.out.println("inside student");
+			size=0;
+		}
+		public void InsertFirst(int i,String s,int j,int m)
+		{
+			Node newn=new Node(i,s,j,m);
+
+				if(this.head==null)
+				{
+					this.head=newn;
+					
+				}
+				else
+				{
+					newn.next=head;
+					this.head=newn;
+				}
+				this.size++;
+				//System.out.println("inside first");
+						System.out.println("data store successfully");
+		}	
+		public void InsertLast(int i,String s,int j,int m)
+		{
+			Node temp=this.head;
+			Node newn=new Node(i,s,j,m);
+			
+			if(this.head==null)
+			{
+				this.head=newn;
+			}
+			else
+			{
+				while(temp!=null)
+				{
+					temp=temp.next;
+				}
+				temp.next=newn;
+			}
+				this.size++;
+		}
+		public void Delete(int no)
+		{
+			Node temp=this.head;
+			int i=0;
+			
+			if(this.head==null)
+			{
+				return;
+			}
+			if(head.rno==no)
+			{
+				head=head.next;
+				this.size--;
+				return;
+			}
+			for(i=0;i<this.size;i++)
+			{
+				if(temp.next.rno==no)
+				{
+					break;
+				}
+				temp=temp.next;
+			}
+			if(i==this.size)
+			{
+				System.out.println("there is no elemetns");		
+			}
+			else
+			{
+				temp.next=temp.next.next;
+			}
+			this.size--;
+		}
+		public void Delete(String str)
+		{
+			Node temp=this.head;
+			int i=0;
+			if(this.head==null)
+			{
+				return;
+			}
+			if(str.equals(head.name))
+			{
+				head=head.next;
+				this.size--;
+				return;
+			}
+			for(i=0;i<this.size;i++)
+			{
+				if(str.equals(temp.next.name))
+				{
+					break;
+				}
+				temp=temp.next;
+			}
+			
+			if(i==this.size)
+			{
+				System.out.println("there is no elemetns");
+			}
+			else
+			{
+				temp.next=temp.next.next;
+			}
+			this.size--;
+		}
+		public void Display()
+		{
+			Node temp=this.head;
+			
+				System.out.println("Marvellous of linked list");
+
+			while(temp!=null)
+			{
+				
+				System.out.println("Rno : "+temp.rno+" Name : "+temp.name+" Age :"+temp.age+" Marks : "+temp.marks); 
+				
+				
+				//System.out.println(this.rno+" "+this.name+" "+this.age);
+				temp=temp.next;
+			}
+		}
+		public int Max()
+		{
+			Node temp=this.head;
+			int maxx=temp.marks;
+			while(temp!=null)
+			{
+				if(temp.marks>maxx)
+				{
+					maxx=temp.marks;
+				}
+				temp=temp.next;
+			}
+			return maxx;
+		}
+		public void Search(String str)
+		{
+			Node temp=this.head;
+			while(temp!=null)
+			{
+				if(str.equals(temp.name))
+				{
+					break;
+				}
+				temp=temp.next;
+			}
+			if(temp==null)
+			{
+				System.out.println("thereis no such memeber");
+			}
+			else
+			{
+				System.out.println("Member found of name:"+str);
+				System.out.println("Name:"+temp.name);
+				System.out.println("roll number:"+temp.rno);
+				System.out.println("Age:"+temp.age);
+				System.out.println("Age:"+temp.marks);
+
+			}
+		}
+		public void Update(int no)
+		{
+			Node temp=this.head;
+			while(temp!=null)
+			{
+				if(temp.rno==no)
+				{
+					break;
+				}
+				temp=temp.next;
+			}
+			if(temp==null)
+			{
+				System.out.println("There is no such member");
+			}
+			else
+			{
+				Scanner sobj=new Scanner(System.in);
+				System.out.println("Update:Name/Age/Both");
+				System.out.println("1/2/3");
+				
+				int option=sobj.nextInt();
+				System.out.println(option);
+				
+				switch(option)
+				{
+					case 3:
+					case 1:
+					System.out.println("Enter new name");
+					sobj.nextLine();
+					String s=sobj.nextLine();
+					
+					temp.name=s;
+					
+					if(option==1)
+					{
+						break;
+					}
+					case 2:
+					System.out.println("Enter new age");
+					int j=sobj.nextInt();
+					temp.age=j;
+					break;
+					
+				}
+				System.out.println("Successfully updated.......");
+			}
+		}	
+		public int Sum(String n)
+		{
+			Node temp=this.head;
+			int sum=0;
+			while(temp!=null)
+			{
+				if(n.equals(temp.name))				
+				{	
+				sum=sum+temp.marks;
+				}
+				temp=temp.next;
+			}
+			return sum;
+		}
+		public int Count()
+		{
+			
+			return this.size;
+		}
+	}
+	class Helper
+	{
+		public void Help()
+		{
+			System.out.println("+-------------------------+");
+			System.out.println("Sql Query");
+			System.out.println("+-------------------------+");
+			System.out.println("CREATE: Create table");
+			System.out.println("INSERT: insert value in table");
+			System.out.println("SELECT: Display table data");
+			System.out.println("COUNT : Count specific record from table ");
+			System.out.println("UPDATE: update specific record or set new value");
+			System.out.println("DELETE: Delete all recored or specific record");
+			System.out.println("SUM   : Addition of field of table");
+			
+			System.out.println("MAX   : Maximum value from specific field.");
+			System.out.println("EXIT  : terminate the project. ");
+			System.out.println("+-------------------------+");
+		}
+	}
+////////////////////////////////////////////////
+class Cdbms
+{
+	public static void main(String arg[])
+	{
+		
+		System.out.println("Customized linked list");
+		Student ss=null;
+		Scanner sobj=new Scanner(System.in);
+		System.out.println("Marvellous DB Started...");
+		Helper hp=new Helper();
+		
+		while(true)
+		{
+			System.out.println("MarvellousDB:>");
+			
+			String query=sobj.nextLine();
+			
+			String tokens[]=query.split("\\s");
+			
+			//stop
+			if(tokens.length==1)
+			{
+				if(query.equalsIgnoreCase("stop"))
+				{
+					System.out.println("Thank you for using marvellous DB");
+					break;
+				}
+				else if(query.equalsIgnoreCase("help"))
+				{
+					hp.Help();
+					//System.out.println("");
+				}
+				
+				
+			}
+			//select * from studet
+			if(tokens.length==4)
+			{
+				if(tokens[0].equalsIgnoreCase("select"))
+				{
+					ss.Display();
+					System.out.println("+------------------------------------------------------------+");
+
+				}	
+			}
+			
+			//select sum marks from student where name = ram
+			if(tokens.length==9)
+			{
+				
+				if(tokens[1].equalsIgnoreCase("sum"))
+				{
+					
+					int ret=ss.Sum(tokens[8]);
+					System.out.println("Summtion is: "+ret);
+				}
+			}
+			//select count no from studant
+			//select max marks from studnt
+			if(tokens.length==5)
+			{	
+				if(tokens[1].equalsIgnoreCase("count"))
+				{
+						int iret=ss.Count();
+						System.out.println("Number of Student is: "+iret);
+				}
+				if(tokens[1].equalsIgnoreCase("max"))
+				{
+					int bret=ss.Max();
+					System.out.println("Maximum marks is : "+bret);
+				}
+			}	
+			//insert into student value 11 ram 21
+			//delete from student where rno = 11 
+			if(tokens.length==8)
+			{
+				//	System.out.println("inside insertfirst");
+				if(tokens[0].equalsIgnoreCase("insert"))
+				{
+					//System.out.println("inside insert");
+					ss.InsertFirst(Integer.parseInt(tokens[4]),tokens[5],Integer.parseInt(tokens[6]),Integer.parseInt(tokens[7]));
+							//System.out.println("inside insert");		
+
+					
+				}
+			}	
+			if(tokens.length==7)
+			{	if(tokens[0].equalsIgnoreCase("delete"))
+				{
+					if(ss==null)
+					{
+						System.out.println("Table is not present");
+						continue;
+					}
+					ss.Delete(Integer.parseInt(tokens[6]));
+				}
+			}
+			//create table student
+			if(tokens.length==3)
+			{
+				if(tokens[0].equalsIgnoreCase("create"))
+				{
+					ss=new Student();
+				   System.out.println("Table is created successfully");      
+				}
+			}
+			//update student set name=amit where rno = 11
+			if(tokens.length==10)
+			{
+				if(tokens[0].equalsIgnoreCase("update"))
+				{
+					ss.Update(Integer.parseInt(tokens[9]));
+					
+				}
+			}
+		}
+	}
+}
